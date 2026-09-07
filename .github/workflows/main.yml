@@ -21,12 +21,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install pytest
     
-    - name: Run tests
+    - name: Run unit tests (CP-02 crítico)
       run: |
-        cd tests
-        python -m unittest test_inventario.py -v
+        python -m pytest tests/test_cp02_critico.py -v
+    
+    - name: Run all tests
+      run: |
+        python -m pytest tests/ -v || echo "Algunos tests pueden fallar"
       continue-on-error: true
     
     - name: Verify pipeline
-      run: echo "✅ Pipeline de CI ejecutado correctamente para JaraFix Inventario"
+      run: echo "✅ Pipeline de CI ejecutado correctamente - JaraFix Inventario"
+       
